@@ -18,7 +18,7 @@
         *每天仅提现1次，12小时左右结算完毕。<br />
         *准代理200可申请提现，专业代理500可申请提现。
       </div>
-      <div
+      <!-- <div
         class="alert alert-danger alert-dismissible"
         style="margin-top: 10px;background-color: #3c8dbc !important;border-color:#3c8dbc !important;"
       >
@@ -39,7 +39,7 @@
         *提现便捷，告别买卡烦恼。<br />
         *随时可提，到账时间22：00到次日上午10：00<br />
         <a target="_blank" href="http://usdt.hxcdr.com">点击查看提现流程</a>
-      </div>
+      </div> -->
       <ol class="breadcrumb">
         <li>
           <a href="index.aspx"><i class="fa fa-home"></i>桌面</a>

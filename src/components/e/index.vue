@@ -5,44 +5,11 @@
         class="content-header bg-gray-active responsive-lg"
         style="padding: 14px;"
       >
-        <div class="row">
-          <div class="col-xs-12" style="line-height: 27px;">
-            <div style="float: left; padding-right: 15px; width: 270px;">
-              <div class="input-group">
-                <input
-                  type="text"
-                  name="starttime"
-                  class="form-control input-sm"
-                  id="starttime"
-                  placeholder="起始日期"
-                />
-                <span class="input-group-addon">至</span>
-                <input
-                  type="text"
-                  name="endtime"
-                  class="form-control input-sm"
-                  id="endtime"
-                  placeholder="结束日期"
-                />
-              </div>
-            </div>
-            <div style="float:left; padding-right:15px;">
-              <select id="status" class="form-control input-sm" name="status">
-                <option value="0" selected>全部</option>
-                <option value="2">未提现</option>
-                <option value="3">提现中</option>
-                <option value="4">已提现</option>
-                <option value="5">提现失败</option>
-              </select>
-            </div>
-            <div style="float: left;">
-              <button
-                type="button"
-                class="btn btn-danger btn-sm"
-                onclick="$('#frmSearch').submit();"
-              >
-                <i class="fa fa-search"></i>搜索
-              </button>
+         <div class="row">
+          <div class="col-xs-12" style="line-height: 27px;display: flex;">
+            <b-form-datepicker id="datepicker-valid" v-model="date"></b-form-datepicker>
+            <div >
+              <b-button variant="info" @click="search">搜索</b-button>
             </div>
           </div>
         </div>
@@ -97,7 +64,13 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      date: ""
+    };
+  },
+  methods: {
+    search(){
+    }
   }
 };
 </script>

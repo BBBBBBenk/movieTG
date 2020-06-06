@@ -6,34 +6,10 @@
         style="padding: 14px;"
       >
         <div class="row">
-          <div class="col-xs-12" style="line-height: 27px;">
-            <div style="float: left; padding-right: 15px; width: 270px;">
-              <div class="input-group">
-                <input
-                  type="text"
-                  name="starttime"
-                  class="form-control input-sm"
-                  id="starttime"
-                  placeholder="起始日期"
-                />
-                <span class="input-group-addon">至</span>
-                <input
-                  type="text"
-                  name="endtime"
-                  class="form-control input-sm"
-                  id="endtime"
-                  placeholder="结束日期"
-                />
-              </div>
-            </div>
-            <div style="float: left;">
-              <button
-                type="button"
-                class="btn btn-danger btn-sm"
-                onclick="$('#frmSearch').submit();"
-              >
-                <i class="fa fa-search"></i>搜索
-              </button>
+          <div class="col-xs-12" style="line-height: 27px;display: flex;">
+            <b-form-datepicker id="datepicker-valid" v-model="date"></b-form-datepicker>
+            <div style="width: 100px;">
+              <b-button variant="info" @click="search">搜索</b-button>
             </div>
           </div>
         </div>
@@ -100,7 +76,13 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      date: ''
+    };
+  },
+  methods: {
+    search(){
+    }
   }
 };
 </script>

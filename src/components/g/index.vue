@@ -104,7 +104,7 @@
         </div>
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordionb-1 variant="info"
+            <b-button block v-b-toggle.accordiona-1 variant="info"
               >Q1：代理等级有什么用处？</b-button
             >
           </b-card-header>
