@@ -41,13 +41,12 @@
                                 <tbody>
                                     <tr>
                                         <td>代理ID：</td>
-                                        <td v-cloak>{{UserInfo.UserID}} </td>
+                                        <td v-cloak>{{UserInfo.id}} </td>
                                     </tr>
                                     <tr>
                                         <td >账号：</td>
                                         <td>
-                                            <input v-if="uinfo.Email==null||uinfo.Email==''" type="text" name="account" id="account" value="" size="30">
-                                            <span v-else v-cloak>{{UserInfo.Email+((UserInfo.Phone==""||UserInfo.Phone==null)?"":"("+UserInfo.Phone+")")}}</span>
+                                           <span>{{UserInfo.account}}</span>
                                         </td>
                                     </tr>
                                     <!--<tr v-if="uinfo.Email==null||uinfo.Email==''">
@@ -57,7 +56,7 @@
                                             <button type="button" id="codesend" onclick="sendcode()" class="btn btn-success" style="height: 25px;line-height: 10px;margin-bottom: 3px;margin-left: 8px;">发送</button>
                                         </td>
                                     </tr>-->
-                                    <tr v-if="uinfo.Email==null||uinfo.Email==''">
+                                    <!--<tr v-if="uinfo.Email==null||uinfo.Email==''">
                                         <td>密码：</td>
                                         <td>
                                             <input type="password" name="password" id="password" value="" size="30">
@@ -68,14 +67,14 @@
                                         <td>
                                             <input type="password" name="pass_confirm" id="pass_confirm" value="" size="30">
                                         </td>
-                                    </tr>
+                                    </tr>-->
                                     <tr>
                                         <td>代理类型：</td>
-                                        <td id="agent_levelname" v-cloak>{{uinfo.LevelName}}</td>
+                                        <td id="agent_levelname" v-cloak>{{UserInfo.proxylevel? UserInfo.proxylevel.levelName : '暂未成为代理' }}</td>
                                     </tr>
                                     <tr>
                                         <td>加入时间：</td>
-                                        <td id="agent_addtime" v-cloak>{{uinfo.AddTime}}</td>
+                                        <td id="agent_addtime" v-cloak>{{UserInfo.createTime}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -91,11 +90,12 @@
                             <div class="form-group">
                                 <label for="b_name" class="col-sm-2 control-label">户名</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="UserName" name="UserName" placeholder="如：张三"  />
+                                    <input type="text" class="form-control" v-if="!hasBank" v-model="params.accountName" id="UserName" name="UserName" placeholder="如：张三"  />
+                                    <span v-else>{{ UserInfo.bank.accountName }}</span>
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label for="method" class="col-sm-2 control-label">选择金流</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" id="method" name="method">
@@ -104,44 +104,39 @@
                                         <option value="2">比特币地址</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div id="b_bank" class="form-group">
                                 <label for="bank" class="col-sm-2 control-label">银行名称</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="bank" name="bank" placeholder="如：中国建设银行" />
-                                </div>
-                            </div>
-
-                            <div id="b_branch" class="form-group">
-                                <label for="branch" class="col-sm-2 control-label">分行名称</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="branch" name="branch" placeholder="如：北京朝阳北路支行" />
+                                    <input type="text" v-if="!hasBank" class="form-control" v-model="params.bankName" id="bank" name="bank" placeholder="如：中国建设银行" />
+                                    <span v-else>{{ UserInfo.bank.bankName }}</span>
                                 </div>
                             </div>
 
                             <div id="b_b_account" class="form-group">
                                 <label for="account" class="col-sm-2 control-label">银行账号</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="b_account" name="b_account" placeholder="如：6227033012341234123" />
+                                    <input type="text" v-if="!hasBank" class="form-control" v-model="params.bankNumber" id="b_account" name="b_account" placeholder="如：6227033012341234123" />
+                                  <span v-else>{{ UserInfo.bank.bankNumber }}</span>
                                 </div>
                             </div>
 
-                            <div id="b_ali_pay" class="form-group" style="display: none;">
+                            <!--<div id="b_ali_pay" class="form-group" style="display: none;">
                                 <label for="account" class="col-sm-2 control-label">支付宝账号</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="ali_pay" name="ali_pay" placeholder="如：xxxxxx@qq.com或13888888888" />
+                                    <input type="text" v-if="!hasBank" class="form-control" id="ali_pay" name="ali_pay" placeholder="如：xxxxxx@qq.com或13888888888" />
                                 </div>
                             </div>
                             <div id="b_coin_pay" class="form-group" style="display: none;">
                                 <label for="account" class="col-sm-2 control-label">比特币地址</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="coin" name="coin" placeholder="" />
+                                    <input type="text" v-if="!hasBank" class="form-control" id="coin" name="coin" placeholder="" />
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="box-footer">
-                            <button type="button" id="bankbtn" class="btn btn-success pull-left" onclick="UpdateAgentBank()">保存</button>
+                            <button type="button" id="bankbtn" class="btn btn-success pull-left" @click="UpdateAgentBank">保存</button>
                         </div>
                     </form>
                 </div>
@@ -157,7 +152,35 @@ export default {
       UserInfo: {},
       uinfo: {},
       tag_index: 1,
+      inviteCodePrefix: '',
+      params: {
+        accountName: null,
+        bankName: null,
+        bankNumber: null
+      }
     };
+  },
+  computed: {
+    hasBank() {
+      return this.UserInfo.bank !== null;
+    }
+  },
+  created() {
+    this.getUserInfo();
+  },
+  methods: {
+    async getUserInfo() {
+      const { data: res } = await this.$http.get('user/info')
+      this.UserInfo = res.data;
+    },
+    async UpdateAgentBank() {
+      const { data: res } = await this.$http.post('user/bank/update', this.params);
+      if(res.status === 1) {
+        this.$message.success('保存成功');
+      }else{
+        this.$message.error(res.message);
+      }
+    }
   }
 };
 </script>

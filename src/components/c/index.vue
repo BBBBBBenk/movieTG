@@ -50,9 +50,9 @@
                   >
                 </td>
                 <td>
-                  <a href="javascript:;" onclick="copyUrl(this)">{{
-                    shortUrl.home
-                  }}</a>
+                  <a :href="`${inviteCodePrefix}${UserInfo.inviteCode}`">
+                    {{inviteCodePrefix + UserInfo.inviteCode}}
+                  </a>
                 </td>
                 <td>
                   <button
@@ -73,15 +73,13 @@
                   >
                 </td>
                 <td>
-                  <a href="javascript:;" onclick="copyUrl(this)">{{
-                    shortUrl.app
-                  }}</a>
+                  <a :href="appDownLoadAddress" >{{appDownLoadAddress}}</a>
                 </td>
                 <td>
                   <button
                     type="button"
                     class="btn bg-purple btn-sm"
-                    :onclick="'ShowQrcode(vm.shortUrl.app,\'link_app_bg\')'"
+
                   >
                     <i class="fa fa-weixin"></i>&nbsp;&nbsp;二维码
                   </button>
@@ -91,9 +89,7 @@
                 <td>3.</td>
                 <td>网站<small>（论坛、其他）</small></td>
                 <td>
-                  <a href="javascript:;" onclick="copyUrl(this)">{{
-                    shortUrl.agent
-                  }}</a>
+                  <a :href="webSiteDomain">{{webSiteDomain}}</a>
                 </td>
                 <td></td>
               </tr>
@@ -101,19 +97,7 @@
                 <td>4.</td>
                 <td>APP下载<small>（论坛、其他）</small></td>
                 <td>
-                  <a href="javascript:;" onclick="copyUrl(this)">{{
-                    shortUrl.agentapp
-                  }}</a>
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>5.</td>
-                <td>安卓独享APK包</td>
-                <td>
-                  <a href="javascript:;" onclick="copyUrl(this)">{{
-                    shortUrl.package == "" ? "未开通" : shortUrl.package
-                  }}</a>
+                  <a :href="appDownLoadAddress">{{appDownLoadAddress}}</a>
                 </td>
                 <td></td>
               </tr>
@@ -128,8 +112,31 @@
 export default {
   data() {
     return {
-      shortUrl: {}
+      shortUrl: {},
+      UserInfo: {},
+      inviteCodePrefix: '',
+      appDownLoadAddress: '',
+      webSiteDomain: ''
     };
+  },
+  created() {
+    this.getUserInfo();
+    this.getInviteCodePrefix();
+  },
+  methods: {
+    async getUserInfo() {
+      const { data: res } = await this.$http.get('user/info')
+      this.UserInfo = res.data;
+    },
+    async getInviteCodePrefix() {
+      const { data: res } = await this.$http.get('system/get/inviteprefix');
+      console.log(res);
+      if(res.status === 1) {
+        this.inviteCodePrefix = res.data.inviteCodePrefix;
+        this.appDownLoadAddress = res.data.appDownLoadAddress;
+        this.webSiteDomain = res.data.webSiteDomain;
+      }
+    }
   }
 };
 </script>
