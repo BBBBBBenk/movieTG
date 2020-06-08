@@ -283,7 +283,7 @@
                     >子代理总数<span
                       class="pull-right text-green"
                       id="totalchildcount"
-                      >{{ personDetail.info.halfMonthAgo.totalProxyNumber }}</span
+                      >{{ personDetail.info.halfMonthAgo.totalProxyNumber }}人</span
                     ></a
                   >
                 </li>

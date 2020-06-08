@@ -47,7 +47,7 @@
         <div class="tab-content">
           <div class="box box-danger">
             <div class="box-body no-padding table-responsive">
-              <table id="orderList" class="table table-striped text-nowrap">
+              <!--<table id="orderList" class="table table-striped text-nowrap">
                 <thead>
                   <tr>
                     <th>子代理ID</th>
@@ -57,7 +57,11 @@
                     <th>业绩综合</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                  <tr v-for="dataItem in tableData" :key="dataItem.id">
+                    <td></td>
+                  </tr>
+                </tbody>
                 <tfoot>
                   <tr>
                     <td><b>合计:</b></td>
@@ -65,23 +69,76 @@
                     <td><span id="sumPay" style="color: #32CD32;"></span></td>
                   </tr>
                 </tfoot>
-              </table>
+              </table>-->
+              <b-table striped hover :items="items" :fields="fields"></b-table>
+              <!--<el-table :data="tableData">
+                <el-table-column label="子代理ID"></el-table-column>
+                <el-table-column label="昵称"></el-table-column>
+                <el-table-column label="代理等级"></el-table-column>
+                <el-table-column label="加入时间"></el-table-column>
+                <el-table-column label="业绩综合"></el-table-column>
+              </el-table>-->
             </div>
           </div>
         </div>
       </div>
     </section>
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="total"
+      :per-page="pageSize"
+      aria-controls="my-table"
+    ></b-pagination>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      date: ''
+      date: '',
+      total: 0,
+      pageSize: 10,
+      currentPage: 1,
+      items: [],
+      fields: [
+        {
+          key: 'proxy.id',
+          label: '子代理ID',
+          sortable: false
+        },
+        {
+          key: 'proxy.nickname',
+          label: '昵称',
+          sortable: false
+        },
+        {
+          key: 'proxy.proxylevel.levelName',
+          label: '代理等级',
+          sortable: false,
+        },
+        {
+          key: 'proxy.createTime',
+          label: '加入时间',
+          sortable: false,
+        },
+        {
+          key: 'proxy.wallet.amount',
+          label: '业绩综合',
+          sortable: false,
+        }
+      ]
     };
+  },
+  created() {
+    this.getProxyList();
   },
   methods: {
     search(){
+    },
+    async getProxyList() {
+      const { data: res } = await this.$http.get('user/proxy/member/get', { params: { pageSize: 10, pageNum: 1 } });
+      this.items = res.data.proxyMemberList;
+      this.total = res.data.total
     }
   }
 };

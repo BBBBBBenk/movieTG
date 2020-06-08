@@ -30,7 +30,7 @@
         <div class="tab-content">
           <div class="box box-danger">
             <div class="box-body no-padding table-responsive">
-              <table id="orderList" class="table table-striped text-nowrap">
+              <!--<table id="orderList" class="table table-striped text-nowrap">
                 <thead>
                   <tr>
                     <th>用户ID</th>
@@ -53,7 +53,15 @@
                     <td colspan="3"></td>
                   </tr>
                 </tfoot>
-              </table>
+              </table>-->
+              <b-table striped hover :items="items" :fields="fields">
+                <template v-slot:cell(order.orderType)="data">
+                  {{data.item.order.orderType === 1? '开通VIP' : data.item.order.orderType === 3? '续费VIP': '其他消费'}}
+                </template>
+                <template v-slot:cell(order.orderStatus)="data">
+                  {{data.item.order.orderStatus === 1? '未支付' : '已支付'}}
+                </template>
+              </b-table>
             </div>
           </div>
         </div>
@@ -65,12 +73,70 @@
 export default {
   data() {
     return {
-      date: ""
+      date: "",
+      items: [],
+      fields: [
+        {
+          key: 'order.userId',
+          label: '用户ID',
+          sortable: false
+        },
+        {
+          key: 'order.user.nickname',
+          label: '昵称',
+          sortable: false
+        },
+        {
+          key: 'proxy.nickname',
+          label: '消费记录',
+          sortable: false
+        },
+        {
+          key: 'order.payTime',
+          label: '消费日期',
+          sortable: false,
+        },
+        {
+          key: 'changeAmount',
+          label: '提成',
+          sortable: false,
+        },
+        {
+          key: 'order.orderAmount',
+          label: '消费金额',
+          sortable: false,
+        },
+        {
+          key: 'order.orderType',
+          label: '消费类型',
+          sortable: false,
+        },
+        {
+          key: 'order.proxyShare',
+          label: '提成比例',
+          sortable: false,
+        },
+        {
+          key: 'order.orderStatus',
+          label: '状态',
+          sortable: false,
+        }
+      ]
     };
+  },
+  created() {
+    this.getProxyList();
   },
   methods: {
     search(){
+    },
+    async getProxyList() {
+      const { data: res } = await this.$http.get('user/proxy/member/order/get', { params: { pageSize: 10, pageNum: 1 } });
+      console.log(res.data.proxyMemberOrderList);
+      this.items = res.data.proxyMemberOrderList.walletlogs;
+      this.total = res.data.total
     }
+
   }
 };
 </script>
