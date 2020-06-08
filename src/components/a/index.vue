@@ -49,7 +49,7 @@
                   <a href="#"
                     >总盈利
                     <span class="pull-right text-green" id="todaychargesum"
-                      >￥0</span
+                      >¥{{ personDetail.info.todaySelf.totalProxyProfit }}</span
                     ></a
                   >
                 </li>
@@ -57,20 +57,14 @@
                   <a href="#"
                     >首充盈利
                     <span class="pull-right text-aqua" id="todayfirstcharge"
-                      >￥0</span
+                      >¥{{ personDetail.info.todaySelf.todayFirstChargeProfit }}</span
                     ></a
                   >
                 </li>
                 <li>
                   <a href="#"
                     >续费盈利
-                    <span class="pull-right" id="todaycharge">￥0</span></a
-                  >
-                </li>
-                <li>
-                  <a href="#"
-                    >子代理提成
-                    <span class="pull-right" id="todaychildcharge">￥0</span></a
+                    <span class="pull-right" id="todaycharge">¥{{ personDetail.info.todaySelf.todayContinueProfit }}</span></a
                   >
                 </li>
               </ul>
@@ -100,7 +94,7 @@
                   <a href="#"
                     >总业绩
                     <span class="pull-right text-green" id="todayperfosum"
-                      >￥0</span
+                      >¥{{ personDetail.data.profit || 0 }}</span
                     ></a
                   >
                 </li>
@@ -108,7 +102,7 @@
                   <a href="#"
                     >个人业绩
                     <span class="pull-right text-green" id="todaysingleperfosum"
-                      >￥0</span
+                      >¥{{ personDetail.data.profit || 0 }}</span
                     ></a
                   >
                 </li>
@@ -116,19 +110,11 @@
                   <a href="#"
                     >子代理业绩
                     <span class="pull-right text-green" id="todaychildperfosum"
-                      >￥0</span
+                      >¥{{ personDetail.info.today.totalProxyProfit }}</span
                     ></a
                   >
                 </li>
-                <li>
-                  <a href="#"
-                    >子代理提成比<span
-                      class="pull-right text-green"
-                      id="todaychildrate"
-                      >0%</span
-                    ></a
-                  >
-                </li>
+
               </ul>
             </div>
           </div>
@@ -158,7 +144,7 @@
                     >注册人数<span
                       class="pull-right text-green"
                       id="todayusercount"
-                      >0</span
+                      >{{ personDetail.info.today.todayRegister }}人</span
                     ></a
                   >
                 </li>
@@ -167,7 +153,7 @@
                     >充值笔数<span
                       class="pull-right text-green"
                       id="todatvipcount"
-                      >0</span
+                      >{{ personDetail.info.today.todayOrderCount }}笔</span
                     ></a
                   >
                 </li>
@@ -177,7 +163,7 @@
                     <span
                       class="pull-right text-green"
                       id="todayfirstchargecount"
-                      >0</span
+                      >{{ personDetail.info.today.todayIsFirstChargeNum }}笔</span
                     ></a
                   >
                 </li>
@@ -186,7 +172,7 @@
                     >续费笔数<span
                       class="pull-right text-green"
                       id="todaychargecount"
-                      >0</span
+                      >{{ personDetail.info.today.todayContinueChargeNum }}笔</span
                     ></a
                   >
                 </li>
@@ -224,7 +210,7 @@
                   <a href="#"
                     >盈利总计
                     <span class="pull-right text-green" id="totalchargesum"
-                      >￥0</span
+                      >¥{{ personDetail.info.halfMonthSelf.totalProxyProfit }}</span
                     ></a
                   >
                 </li>
@@ -232,22 +218,14 @@
                   <a href="#"
                     >首充总盈利
                     <span class="pull-right text-aqua" id="totalfirstcharge"
-                      >￥0</span
+                      >¥{{ personDetail.info.halfMonthSelf.totalFirstChargeProfit }}</span
                     ></a
                   >
                 </li>
                 <li>
                   <a href="#"
                     >续费总盈利
-                    <span class="pull-right" id="totalcharge">￥0</span></a
-                  >
-                </li>
-                <li>
-                  <a href="#"
-                    >子代理总提成
-                    <span class="pull-right text-green" id="totalchildcharge"
-                      >￥0</span
-                    ></a
+                    <span class="pull-right" id="totalcharge">¥{{ personDetail.info.halfMonthSelf.totalContinueProfit }}</span></a
                   >
                 </li>
               </ul>
@@ -278,7 +256,7 @@
                     >业绩总计<span
                       class="pull-right text-green"
                       id="totalperfosum"
-                      >￥0</span
+                      >¥{{ personDetail.info.halfMonthAgo.totalProxyProfit }}</span
                     ></a
                   >
                 </li>
@@ -287,7 +265,7 @@
                     >个人总业绩<span
                       class="pull-right text-green"
                       id="totalsingleperfosum"
-                      >￥0</span
+                      >¥{{ personDetail.data.profit || 0 }}</span
                     ></a
                   >
                 </li>
@@ -296,7 +274,7 @@
                     >子代理总业绩<span
                       class="pull-right text-green"
                       id="totalchildperfosum"
-                      >￥0</span
+                      >¥{{ personDetail.info.halfMonthAgo.totalProxyProfit }}</span
                     ></a
                   >
                 </li>
@@ -305,7 +283,7 @@
                     >子代理总数<span
                       class="pull-right text-green"
                       id="totalchildcount"
-                      >0</span
+                      >{{ personDetail.info.halfMonthAgo.totalProxyNumber }}</span
                     ></a
                   >
                 </li>
@@ -337,7 +315,7 @@
                     >注册总人数<span
                       class="pull-right text-green"
                       id="totalusercount"
-                      >0</span
+                      >{{ personDetail.info.halfMonthAgo.halfMonthAgoRegister }}人</span
                     ></a
                   >
                 </li>
@@ -346,7 +324,7 @@
                     >Vip会员总数<span
                       class="pull-right text-green"
                       id="totalvipcount"
-                      >0</span
+                      >{{ personDetail.info.halfMonthAgo.totalOpenVip }}人</span
                     ></a
                   >
                 </li>
@@ -355,7 +333,7 @@
                     >首充总笔数<span
                       class="pull-right text-green"
                       id="totalfirstchargecount"
-                      >0</span
+                      >{{ personDetail.info.halfMonthAgo.halfMonthAgoIsFirstChargeNum }}笔</span
                     ></a
                   >
                 </li>
@@ -364,7 +342,7 @@
                     >续费总笔数<span
                       class="pull-right text-green"
                       id="totalchargecount"
-                      >0</span
+                      >{{ personDetail.info.halfMonthAgo.halfMonthAgoContinueChargeNum }}笔</span
                     ></a
                   >
                 </li>
@@ -381,7 +359,118 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      personDetail: {
+        data: {},
+        info: {
+          todaySelf: {
+            totalProxyProfit: 0,
+            todayContinueProfit: 0,
+            todayFirstChargeProfit: 0
+          },
+          halfMonthSelf: {
+            totalProxyProfit: 0,
+            totalContinueProfit: 0,
+            totalFirstChargeProfit: 0
+          },
+          today: {
+            totalProxyProfit: 0,
+            totalRegister: 0,
+            todayOrderCount: 0,
+          },
+          halfMonthAgo: {
+            totalProxyProfit: 0,
+            totalRegister: 0,
+            halfMonthAgoOrderCount: 0
+          }
+        },
+        currentRow: {},
+      }
+    };
+  },
+  created() {
+    this.showDetail();
+  },
+  methods: {
+    showDetail() {
+      this.$http.get('user/get/self/proxy/profit').then(res => {
+        this.personDetail.data = res.data.data;
+        let today = {
+          totalProxyProfit: 0,
+          todayRegister: res.data.data.todayRegister[0].totalRegister,
+          todayOrderCount: 0,
+          todayIsFirstChargeNum: 0,
+          todayContinueChargeNum: 0,
+          totalProxyNumber: 0,
+          totalOpenVip: 0,
+        };
+        let halfMonthAgo = {
+          totalProxyProfit: 0,
+          halfMonthAgoRegister: res.data.data.halfMonthAgoRegister[0].totalRegister,
+          halfMonthAgoOrderCount: 0,
+          halfMonthAgoIsFirstChargeNum: 0,
+          halfMonthAgoContinueChargeNum: 0,
+          totalProxyNumber: 0,
+          totalOpenVip: 0,
+        }
+
+        /* 今日自己的利润 */
+        this.personDetail.data.todaySelf.wallet.walletlogs.map(proxyUserWalletLog => {
+          this.personDetail.info.todaySelf.totalProxyProfit += Number(proxyUserWalletLog.changeAmount);
+          if(proxyUserWalletLog.otherType === 2){
+            this.personDetail.info.todaySelf.todayContinueProfit += Number(proxyUserWalletLog.otherAmount);
+          }
+          if(proxyUserWalletLog.otherType === 1) {
+            this.personDetail.info.todaySelf.todayFirstChargeProfit += Number(proxyUserWalletLog.otherAmount);
+          }
+
+        });
+
+        /* 半个月来自己的利润 */
+        this.personDetail.data.halfMonthSelf.wallet.walletlogs.map(proxyUserWalletLog => {
+          this.personDetail.info.halfMonthSelf.totalProxyProfit += Number(proxyUserWalletLog.changeAmount);
+          if(proxyUserWalletLog.otherType === 2){
+            this.personDetail.info.halfMonthSelf.totalContinueProfit += Number(proxyUserWalletLog.otherAmount);
+          }
+          if(proxyUserWalletLog.otherType === 1) {
+            this.personDetail.info.halfMonthSelf.totalFirstChargeProfit += Number(proxyUserWalletLog.otherAmount);
+          }
+        });
+
+        today.totalProxyNumber = res.data.data.today.length;
+        today.totalOpenVip = res.data.data.today.filter(proxyItem => proxyItem.proxy.VIPId !== null).length;
+        halfMonthAgo.totalOpenVip = res.data.data.halfMonthAgo.filter(proxyItem => proxyItem.proxy.VIPId !== null).length;
+        halfMonthAgo.totalProxyNumber = res.data.data.halfMonthAgo.length;
+
+        /* 当天数据 */
+        this.personDetail.data.today.map(proxyUser => {
+          /* 充值订单 */
+          today.todayOrderCount += Number(proxyUser.proxy.orders.filter(orderItem => orderItem.orderType === 1).length);
+          /* 首充笔数 */
+          today.todayIsFirstChargeNum += Number(proxyUser.proxy.orders.filter(orderItem => orderItem.isFirstCharge === 1).length);
+          /* 续费订单 */
+          today.todayContinueChargeNum += Number(proxyUser.proxy.orders.filter(orderItem => orderItem.orderType === 3).length);
+          proxyUser.proxy.wallet.walletlogs.map(proxyUserWalletLog => {
+            today.totalProxyProfit += Number(proxyUserWalletLog.changeAmount);
+          });
+        });
+        /* 半月转化数据 */
+        this.personDetail.data.halfMonthAgo.map(proxyUser => {
+          halfMonthAgo.halfMonthAgoOrderCount += Number(proxyUser.proxy.orders.filter(orderItem => orderItem.orderType === 1).length);
+          /* 首充笔数 */
+          halfMonthAgo.halfMonthAgoIsFirstChargeNum += Number(proxyUser.proxy.orders.filter(orderItem => orderItem.isFirstCharge === 1).length);
+          /* 续费订单 */
+          halfMonthAgo.halfMonthAgoContinueChargeNum += Number(proxyUser.proxy.orders.filter(orderItem => orderItem.orderType === 3).length);
+          proxyUser.proxy.wallet.walletlogs.map(proxyUserWalletLog => {
+            halfMonthAgo.totalProxyProfit += Number(proxyUserWalletLog.changeAmount);
+          });
+        });
+        this.personDetail.info.today = today;
+        this.personDetail.info.halfMonthAgo = halfMonthAgo;
+        console.log(this.personDetail.info);
+      });
+
+    }
   }
 };
 </script>

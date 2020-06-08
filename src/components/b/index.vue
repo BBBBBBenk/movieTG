@@ -50,13 +50,13 @@
                                             <span v-else v-cloak>{{UserInfo.Email+((UserInfo.Phone==""||UserInfo.Phone==null)?"":"("+UserInfo.Phone+")")}}</span>
                                         </td>
                                     </tr>
-                                    <tr v-if="uinfo.Email==null||uinfo.Email==''">
+                                    <!--<tr v-if="uinfo.Email==null||uinfo.Email==''">
                                         <td>验证码：</td>
                                         <td>
-                                            <input type="text" name="code" id="code" size="6" style="width: 150px;"> 
+                                            <input type="text" name="code" id="code" size="6" style="width: 150px;">
                                             <button type="button" id="codesend" onclick="sendcode()" class="btn btn-success" style="height: 25px;line-height: 10px;margin-bottom: 3px;margin-left: 8px;">发送</button>
                                         </td>
-                                    </tr>
+                                    </tr>-->
                                     <tr v-if="uinfo.Email==null||uinfo.Email==''">
                                         <td>密码：</td>
                                         <td>

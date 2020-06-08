@@ -1,5 +1,18 @@
 module.exports = {
   lintOnSave: false,
+  devServer: {
+    port: 8081,
+    proxy: {
+      // more options, see https://github.com/chimurai/http-proxy-middleware#proxycontext-config
+      '/api': {
+        target: 'http://localhost:8012/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
+  },
   // publicPath:'/shoph/',
   chainWebpack: config => {
     // 发布模式

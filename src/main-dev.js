@@ -34,14 +34,15 @@ import axios from 'axios'
 // axios.defaults.baseURL = 'http://104.233.163.217:9000/'
 // 远程后台地址
 axios.defaults.baseURL = process.env.VUE_APP_URL
+axios.defaults.timeout = 600000
 
 // 在request 拦截器中, 展示进度条 NProgress.start()
 // 请求在到达服务器之前，先会调用use中的这个回调函数来添加请求头信息
 //请求拦截器
 axios.interceptors.request.use(
   function(config) {
-    let authorization = localStorage.getItem("authorization");
-    config.headers['authorization'] = authorization
+    let token = localStorage.getItem("token");
+    config.headers['token'] = token
     return config;
   },
   function(error) {
@@ -52,14 +53,13 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.interceptors.response.use(
   function(response) {
+    console.log(response);
     let responseStatus = response.data.status;
-    if (responseStatus === 401) {
+    if (responseStatus === 3) {
       window.location.href = "/#/login";
-    } else if (responseStatus === 200 || responseStatus === 201) {
-      if(response.data.msg) {
-        alert(response.data.msg);
-      }
-      
+      window.localStorage.setItem('token', '');
+      window.sessionStorage.setItem('token', '');
+    } else if (responseStatus === 1 || responseStatus === 2 || response.status == 200) {
       return response;
     }
   },
