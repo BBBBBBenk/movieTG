@@ -63,13 +63,13 @@
             data-toggle="modal"
             data-target="#modal"
             style="position: absolute; top: 9px; right: 15px;"
-            onclick="GetDrow()"
+            @click="refund"
           >
             我要结帐
           </button>
           <div class="box box-danger">
             <div class="box-body table-responsive no-padding">
-              <table id="drowList" class="table table-hover">
+              <!--<table id="drowList" class="table table-hover">
                 <thead>
                   <tr>
                     <th>订单编号</th>
@@ -85,7 +85,24 @@
                   </tr>
                 </thead>
                 <tbody></tbody>
-              </table>
+              </table>-->
+              <b-table striped hover :items="refundOrderList" :fields="fields">
+                <template v-slot:cell(payTime)="data">
+                  {{data.item.payTime === null? '未处理' : data.item.payTime }}
+                </template>
+                <template v-slot:cell(orderStatus)="data">
+                  {{
+                      data.item.orderStatus === 1? '待处理' :
+                      data.item.orderStatus === 3? '提现成功' :
+                      data.item.orderStatus === 4? '管理员已驳回' : ''
+                  }}
+                </template>
+                <template v-slot:cell(operator)="data">
+                  <b-button @click="continueRefund(data.item.id)" v-if="data.item.orderStatus === 4" variant="primary">再次提交</b-button>
+                  <span v-else-if="data.item.orderStatus === 1">等待管理员审核</span>
+                  <span v-else-if="data.item.orderStatus === 3">提现成功</span>
+                </template>
+              </b-table>
             </div>
           </div>
         </div>
@@ -95,8 +112,76 @@
 </template>
 <script>
 export default {
+  created() {
+    this.getRefundOrderList();
+  },
   data() {
-    return {};
+    return {
+      refundOrderList: [],
+      pageNum: 1,
+      pageSize: 10,
+      total: 0,
+      fields: [
+        {
+          key: 'tradeNo',
+          label: '订单编号',
+          sortable: false
+        },
+        {
+          key: 'orderAmount',
+          label: '提现金额',
+          sortable: false
+        },
+        {
+          key: 'orderStatus',
+          label: '申请状态',
+          sortable: false,
+        },
+        {
+          key: 'createTime',
+          label: '申请时间',
+          sortable: false,
+        },
+        {
+          key: 'payTime',
+          label: '处理时间',
+          sortable: false,
+        },
+        {
+          key: 'operator',
+          label: '操作',
+          sortable: false,
+        }
+      ]
+    };
+  },
+  methods: {
+    async continueRefund(orderId) {
+      const { data: res } = await this.$http.post('order/refund/continue', { orderId });
+      if(res.status === 1) {
+        this.$message.success('再次发起成功');
+        await this.getRefundOrderList();
+      }
+    },
+    async refund() {
+      const { data: res } = await this.$http.post('order/refund');
+      if(res.status === 1) {
+        this.$message.success('发起提现成功');
+        await this.getRefundOrderList();
+      }
+    },
+    async getRefundOrderList() {
+      const { data: res } = await this.$http.get('order/get/refund', {
+        params: {
+          pageNum: this.pageNum,
+          pageSize: this.pageSize
+        }
+      });
+      if(res.status === 1) {
+        this.refundOrderList = res.data.rows;
+        this.total = res.data.count;
+      }
+    }
   }
 };
 </script>

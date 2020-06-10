@@ -177,6 +177,7 @@ export default {
       const { data: res } = await this.$http.post('user/bank/update', this.params);
       if(res.status === 1) {
         this.$message.success('保存成功');
+        await this.getUserInfo();
       }else{
         this.$message.error(res.message);
       }

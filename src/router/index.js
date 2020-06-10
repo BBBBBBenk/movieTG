@@ -74,12 +74,14 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
+  base: 'videoTg',
   routes
 })
 
 // 挂载路由导航守卫,to表示将要访问的路径，from表示从哪里来，next是下一个要做的操作 next('/login')强制跳转login
 router.beforeEach((to, from, next) => {
-  // 访问登录页，放行 
+  // 访问登录页，放行
   // if (to.path === '/login') return next()
   // // 获取token
   // const tokenStr = window.sessionStorage.getItem('token')

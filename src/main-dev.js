@@ -60,8 +60,12 @@ axios.interceptors.response.use(
       window.localStorage.setItem('token', '');
       window.sessionStorage.setItem('token', '');
     } else if (responseStatus === 1 || responseStatus === 2 || response.status == 200) {
+      if(responseStatus === 4) {
+        alert(response.data.message);
+      }
       return response;
     }
+
   },
   function(error) {
     return Promise.reject(error);
