@@ -1,37 +1,45 @@
 <template>
   <div class="home">
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">加盟商推广系统</b-navbar-brand>
-      <b-navbar-toggle target="navbar-toggle-collapse">
-        
-      </b-navbar-toggle>
+      <b-navbar-brand href="#">
+        <div class="logo">
+          <img class="logo_ mr-2" src="@/assets/logo.png" alt="" />
+          <span>红豆加盟商推广系统</span>
+        </div>
+      </b-navbar-brand>
+      <b-navbar-toggle target="navbar-toggle-collapse"> </b-navbar-toggle>
       <b-collapse id="navbar-toggle-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item >
+          <b-nav-item>
             <router-link to="/a">首页</router-link>
           </b-nav-item>
           <b-nav-item href="#">
-            <router-link to="/b">账户资料</router-link></b-nav-item>
+            <router-link to="/b">账户资料</router-link></b-nav-item
+          >
           <b-nav-item href="#">
-            <router-link to="/c">推广链接管理</router-link></b-nav-item>
+            <router-link to="/c">推广链接管理</router-link></b-nav-item
+          >
           <b-nav-item href="#">
-            <router-link to="/d">子代理业绩</router-link></b-nav-item>
+            <router-link to="/d">子代理业绩</router-link></b-nav-item
+          >
           <b-nav-item href="#">
-            <router-link to="/e">业绩报表</router-link></b-nav-item>
+            <router-link to="/e">业绩报表</router-link></b-nav-item
+          >
           <b-nav-item href="#">
-            <router-link to="/f">结算中心</router-link></b-nav-item>
+            <router-link to="/f">结算中心</router-link></b-nav-item
+          >
           <b-nav-item href="#">
-            <router-link to="/g">新手指南</router-link></b-nav-item>
-          <b-nav-item href="#">
-            <router-link to="/a">返回官网</router-link></b-nav-item>
-          <b-nav-item href="#">
-            <router-link to="/a">登出</router-link></b-nav-item>
+            <router-link to="/g">新手指南</router-link></b-nav-item
+          >
+          <!-- <b-nav-item :href="good">
+            <router-link to="/a">返回官网</router-link></b-nav-item
+          > -->
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
     <div id="content">
-       <!-- 路由占位符 -->
-     <router-view></router-view>
+      <!-- 路由占位符 -->
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -169,14 +177,27 @@ export default {
 
 <style lang="less" scoped>
 .home {
-  a{
+  .logo {
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .logo_ {
+      display: flex;
+      width: 50px;
+      height: 50px;
+      object-fit: scale-down;
+    }
+  }
+  a {
     color: white;
   }
   #content {
     max-width: 1180px;
     margin: 20px auto;
   }
-  
 }
 .el-container {
   height: 100%;
