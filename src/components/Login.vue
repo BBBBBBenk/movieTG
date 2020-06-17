@@ -15,7 +15,10 @@
           class="login_form"
         >
           <el-form-item label="账号" prop="account">
-            <el-input v-model="loginForm.account" prefix-icon="iconfont icon-user"></el-input>
+            <el-input
+              v-model="loginForm.account"
+              prefix-icon="iconfont icon-user"
+            ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input
@@ -35,110 +38,116 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        list: [1,2,3],
-        loginForm: {
-          account: '13527918387',
-          password: '123'
-        },
-        // 表单验证
-        loginFormRules: {
-          account: [
-            { required: true, message: '请输入用户名', trigger: 'blur' },
-          ],
-          password: [
-            { required: true, message: '请输入用户密码', trigger: 'blur' },
-          ]
-        }
-      }
-    },
-    methods: {
-      // 表单重置按钮
-      resetLoginForm () {
-        this.list.splice(1,0,4);
-        return
-        // console.log(this)
-        // resetFields：element-ui提供的表单方法
-        this.$refs.loginFormRef.resetFields()
+export default {
+  data() {
+    return {
+      list: [1, 2, 3],
+      loginForm: {
+        account: null,
+        password: null,
+        type: 1
       },
-      login () {
-        // 表单预验证
-        // valid：bool类型
-        this.$refs.loginFormRef.validate(async valid => {
-          // console.log(valid)
-          if (!valid) return false
-          // this.$http.post('login', this.loginForm): 返回值为promise
-          // 返回值为promise，可加await简化操作 相应的也要加async
-          const res = await this.$http.post('user/login', this.loginForm)
-          console.log(123, res);
-          if (res.data.status !== 1) return this.$message.error('登录失败')
-          this.$message.success('登录成功')
-          localStorage.setItem("token", `${res.data.data}`);
-          this.$store.commit("setTicket");
-          // 1、将登陆成功之后的token, 保存到客户端的sessionStorage中; localStorage中是持久化的保存
-          //   1.1 项目中出现了登录之外的其他API接口，必须在登陆之后才能访问
-          //   1.2 token 只应在当前网站打开期间生效，所以将token保存在sessionStorage中
-          window.sessionStorage.setItem('token', res.data.data)
-          // 2、通过编程式导航跳转到后台主页, 路由地址为：/home
-          this.$router.push('/users')
-        })
+      // 表单验证
+      loginFormRules: {
+        account: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+        password: [
+          { required: true, message: "请输入用户密码", trigger: "blur" }
+        ]
       }
+    };
+  },
+  methods: {
+    // 表单重置按钮
+    resetLoginForm() {
+      this.list.splice(1, 0, 4);
+      return;
+      // console.log(this)
+      // resetFields：element-ui提供的表单方法
+      this.$refs.loginFormRef.resetFields();
+    },
+    login() {
+      // 表单预验证
+      // valid：bool类型
+      this.$refs.loginFormRef.validate(async valid => {
+        // console.log(valid)
+        if (!valid) return false;
+        // this.$http.post('login', this.loginForm): 返回值为promise
+        // 返回值为promise，可加await简化操作 相应的也要加async
+        const res = await this.$http.post("user/login", this.loginForm);
+        if (res.data.status !== 1) return this.$message.error("登录失败");
+        this.$message.success("登录成功");
+        localStorage.setItem("token", `${res.data.data}`);
+        this.$store.commit("setTicket");
+        // 1、将登陆成功之后的token, 保存到客户端的sessionStorage中; localStorage中是持久化的保存
+        //   1.1 项目中出现了登录之外的其他API接口，必须在登陆之后才能访问
+        //   1.2 token 只应在当前网站打开期间生效，所以将token保存在sessionStorage中
+        window.sessionStorage.setItem("token", res.data.data);
+        // 2、通过编程式导航跳转到后台主页, 路由地址为：/home
+        this.$router.push("/a");
+      });
+    }
+  },
+  created() {
+    if (this.$route.query.token) {
+      localStorage.setItem("token", `${this.$route.query.token}`);
+      this.$store.commit("setTicket");
+      window.sessionStorage.setItem("token", this.$route.query.token);
+      this.$router.push("/a");
     }
   }
+};
 </script>
 
 <style lang="less" scoped>
-  /* // lang="less" 支持less格式
+/* // lang="less" 支持less格式
   // scoped vue的指令，只在当前组件生效 */
-  .login_container {
-    background-color: #2b4b6b;
-    height: 100%;
-  }
-  .login_box {
-    width: 450px;
-    height: 360px;
-    background-color: #fff;
-    border-radius: 3px;
+.login_container {
+  background-color: #2b4b6b;
+  height: 100%;
+}
+.login_box {
+  width: 450px;
+  height: 360px;
+  background-color: #fff;
+  border-radius: 3px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  background-color: #fff;
+
+  .avatar_box {
+    width: 130px;
+    height: 130px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 0 10px #ddd;
     position: absolute;
     left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     background-color: #fff;
-
-    .avatar_box {
-      width: 130px;
-      height: 130px;
-      border: 1px solid #eee;
+    img {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
-      padding: 10px;
-      box-shadow: 0 0 10px #ddd;
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background-color: #eee;
-      }
+      background-color: #eee;
     }
   }
-  .login_form {
-    position: absolute;
-    bottom: 60px;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-  }
-  .btns {
-    display: flex;
-    justify-content: center;
-  }
-  .info {
-    font-size: 13px;
-    margin: 10px 15px;
-  }
+}
+.login_form {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.btns {
+  display: flex;
+  justify-content: center;
+}
+.info {
+  font-size: 13px;
+  margin: 10px 15px;
+}
 </style>
