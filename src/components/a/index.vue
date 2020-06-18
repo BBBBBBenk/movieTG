@@ -13,13 +13,9 @@
         >
           ×
         </button>
-        B、4月22日13点：推广链接3和4已经更换，请代理们及时更换，以免造成损失！！！<br />
-        A、4月17日21点：由于代理老板们多次反馈数据个人量显示过大，现修改为显示2周统计数据，不是删除了数据只是总体数据做了隐藏，并不影响后续会员充值返现。如发现数据不对请及时联系在线商务帮您查询！<br />
-        <br />------------商务合作请点击<span
-          onclick="GoToChat();"
-          style="cursor: pointer; color: rgb(0, 255, 255);"
-          >【在线商务】</span
-        >，代理唯一投诉邮箱：hanxiucao6@gmail.com，紅豆，感谢一路有你！------------
+        <div v-html="notice"> 
+
+        </div>
       </div>
     </section>
     <section class="content-header">
@@ -359,6 +355,7 @@
 export default {
   data() {
     return {
+      notice: '',
       personDetail: {
         data: {},
         info: {
@@ -389,8 +386,13 @@ export default {
   },
   created() {
     this.showDetail();
+    this.getNotice()
   },
   methods: {
+    async getNotice() {
+      let { data: res } = await this.$http.get('notice');
+      this.notice = res.data[0].content
+    },
     showDetail() {
       this.$http.get('user/get/self/proxy/profit').then(res => {
         this.personDetail.data = res.data.data;
