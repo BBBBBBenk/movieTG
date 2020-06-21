@@ -1,5 +1,6 @@
 module.exports = {
   lintOnSave: false,
+  /*publicPath: '/videoTg/',*/
   devServer: {
     port: 8081,
     proxy: {
