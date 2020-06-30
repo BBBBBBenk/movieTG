@@ -1,6 +1,6 @@
 module.exports = {
   lintOnSave: false,
-  // publicPath: '/hongdou2/',
+  /*publicPath: '/videoTg/',*/
   devServer: {
     port: 8081,
     proxy: {

@@ -75,7 +75,6 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: 'videoTg',
   routes
 })
 
