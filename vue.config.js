@@ -1,11 +1,13 @@
 module.exports = {
   lintOnSave: false,
+  // publicPath: '/hongdou2/',
   devServer: {
     port: 8081,
     proxy: {
       // more options, see https://github.com/chimurai/http-proxy-middleware#proxycontext-config
       '/api': {
-        target: 'http://localhost:8012/',
+        // target: 'http://tg.hdav02.com/',
+        target: "http://127.0.0.1:8012/",
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

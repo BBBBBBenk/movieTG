@@ -138,6 +138,11 @@ export default {
           sortable: false,
         },
         {
+          key: 'reason',
+          label: '理由',
+          sortable: false,
+        },
+        {
           key: 'createTime',
           label: '申请时间',
           sortable: false,
@@ -178,7 +183,11 @@ export default {
         }
       });
       if(res.status === 1) {
-        this.refundOrderList = res.data.rows;
+        this.refundOrderList = res.data.rows.reduce((total, item)=>{
+          let obj = Object.assign(item, {reason: item.walletlogs.length>0? item.walletlogs[0].logContent: '无'})
+          total.push(obj)
+          return total
+        }, [])
         this.total = res.data.count;
       }
     }
